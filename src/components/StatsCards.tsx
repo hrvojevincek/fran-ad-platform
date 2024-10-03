@@ -1,19 +1,18 @@
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { useFetchMetrics } from "@/hooks/useFetchMetrics";
 
-interface Metrics {
-  dailyImpressions: number;
-  ad_requests: number;
-  revenue: number;
-}
+const StatsCards = () => {
+  const { data: metrics, isLoading, error } = useFetchMetrics();
 
-const StatsCards = ({ metrics }: { metrics: Metrics | null }) => {
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
-    <div>
+    <div className="flex flex-col gap-6">
       <h1 className="text-2xl font-bold">Summary Metrics</h1>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Stats Card */}
         <Card>
           <CardHeader>
             <CardTitle className="flex gap-1">

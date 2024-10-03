@@ -1,29 +1,35 @@
-import { useState } from "react";
+import { useFetchOvertime } from "@/hooks/useFetchOvertime";
+import { getFilteredData, sortOverTimeData } from "@/utils/graphUtils";
+import { useMemo, useState } from "react";
 import {
-  Line,
-  ResponsiveContainer,
   CartesianGrid,
   Legend,
+  Line,
   LineChart,
+  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
+import DateRangePicker from "./DateRangePicker";
 import SelectGraphButton from "./SelectGraphButton";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import DateRangePicker from "./DateRangePicker";
-import {
-  getFilteredData,
-  OverTimeData,
-  sortOverTimeData,
-} from "@/utils/graphUtils";
 
-const Graph = ({ overTime }: { overTime: OverTimeData[] | null }) => {
+const Graph = () => {
   const [selectedMetric, setSelectedMetric] = useState<string>("all");
-  const [dateRange, setDateRange] = useState<string>("overall"); // Change default to "overall"
+  const [dateRange, setDateRange] = useState<string>("overall");
+
+  const {
+    data: overTime,
+    isLoading: isLoadingData,
+    error: errorData,
+  } = useFetchOvertime();
 
   const sortedOverTime = sortOverTimeData(overTime);
-  const filteredData = getFilteredData(sortedOverTime, dateRange);
+  const filteredData = useMemo(
+    () => getFilteredData(sortedOverTime, dateRange),
+    [sortedOverTime, dateRange]
+  );
 
   return (
     <div className="grid gap-6">

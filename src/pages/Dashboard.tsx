@@ -2,7 +2,6 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-import { useFetchMetrics } from "@/hooks/useFetchMetrics";
 import Header from "../components/Header";
 
 import Graph from "@/components/Graph";
@@ -12,14 +11,6 @@ import { useFetchOvertime } from "@/hooks/useFetchOvertime";
 export function Dashboard() {
   const { user, isAuthenticated } = useAuth();
 
-  const { data: metrics, isLoading, error } = useFetchMetrics();
-
-  const {
-    data: overTime,
-    isLoading: isLoadingData,
-    error: errorData,
-  } = useFetchOvertime();
-
   if (!isAuthenticated || !user) {
     return <Navigate to="/login" />;
   }
@@ -28,8 +19,8 @@ export function Dashboard() {
     <div className="min-h-screen bg-gray-50">
       <Header />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 gap-6 grid">
-        <StatsCards metrics={metrics} />
-        <Graph overTime={overTime} />
+        <StatsCards />
+        <Graph />
       </main>
     </div>
   );

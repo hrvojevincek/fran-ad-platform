@@ -41,9 +41,6 @@ export const getFilteredData = (
       return sortedOverTime; // This will catch "overall" and any unexpected values
   }
 
-  console.log("Filter date:", filterDate);
-  console.log("First data point date:", sortedOverTime[0].date);
-
   const filteredData = sortedOverTime.filter((item) => {
     const itemDate = new Date(item.date);
     if (isNaN(itemDate.getTime())) {
@@ -58,6 +55,5 @@ export const getFilteredData = (
     return itemDate >= filterDate;
   });
 
-  console.log("Filtered data length:", filteredData.length);
   return filteredData;
 };
