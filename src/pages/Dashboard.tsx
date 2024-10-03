@@ -6,7 +6,6 @@ import Header from "../components/Header";
 
 import Graph from "@/components/Graph";
 import StatsCards from "@/components/StatsCards";
-import { useFetchOvertime } from "@/hooks/useFetchOvertime";
 
 export function Dashboard() {
   const { user, isAuthenticated } = useAuth();

@@ -52,7 +52,10 @@ const Graph = () => {
         <CardContent>
           {isLoading ? (
             <div className="h-[450px] flex items-center justify-center">
-              <Loader className="animate-spin size-6 text-muted-foreground" />
+              <Loader
+                className="animate-spin size-6 text-muted-foreground"
+                role="status"
+              />
             </div>
           ) : error ? (
             <div className="h-[450px] flex items-center justify-center">

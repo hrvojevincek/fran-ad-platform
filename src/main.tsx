@@ -8,12 +8,10 @@ import { TooltipProvider } from "@radix-ui/react-tooltip";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <TooltipProvider>
-          <App />
-        </TooltipProvider>
-      </AuthProvider>
-    </BrowserRouter>
+    <AuthProvider>
+      <TooltipProvider>
+        <App />
+      </TooltipProvider>
+    </AuthProvider>
   </StrictMode>
 );
