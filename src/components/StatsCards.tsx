@@ -2,6 +2,7 @@ import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { useFetchMetrics } from "@/hooks/useFetchMetrics";
+import { Loader } from "lucide-react";
 
 const StatsCards = () => {
   const { data: metrics, isLoading, error } = useFetchMetrics();
@@ -29,9 +30,15 @@ const StatsCards = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">
-              {metrics?.dailyImpressions.toLocaleString()}
-            </p>
+            {isLoading ? (
+              <div className="h-full flex items-center justify-center">
+                <Loader className="animate-spin size-6 text-muted-foreground" />
+              </div>
+            ) : (
+              <p className="text-3xl font-bold">
+                {metrics?.dailyImpressions.toLocaleString()}
+              </p>
+            )}
           </CardContent>
         </Card>
         <Card>
@@ -51,9 +58,15 @@ const StatsCards = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">
-              {metrics?.ad_requests.toLocaleString()}
-            </p>
+            {isLoading ? (
+              <div className="h-full flex items-center justify-center">
+                <Loader className="animate-spin size-6 text-muted-foreground" />
+              </div>
+            ) : (
+              <p className="text-3xl font-bold">
+                {metrics?.ad_requests.toLocaleString()}
+              </p>
+            )}
           </CardContent>
         </Card>
         <Card>
@@ -73,7 +86,15 @@ const StatsCards = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">${metrics?.revenue.toFixed(2)}</p>
+            {isLoading ? (
+              <div className="h-full flex items-center justify-center">
+                <Loader className="animate-spin size-6 text-muted-foreground" />
+              </div>
+            ) : (
+              <p className="text-3xl font-bold">
+                ${metrics?.revenue.toFixed(2)}
+              </p>
+            )}
           </CardContent>
         </Card>
       </div>

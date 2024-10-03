@@ -1,6 +1,7 @@
 import { useFetchOvertime } from "@/hooks/useFetchOvertime";
 import { getFilteredData, sortOverTimeData } from "@/utils/graphUtils";
 import { useMemo, useState } from "react";
+import { Loader } from "lucide-react"; // Make sure to import the Loader
 import {
   CartesianGrid,
   Legend,
@@ -19,13 +20,9 @@ const Graph = () => {
   const [selectedMetric, setSelectedMetric] = useState<string>("all");
   const [dateRange, setDateRange] = useState<string>("overall");
 
-  const {
-    data: overTime,
-    isLoading: isLoadingData,
-    error: errorData,
-  } = useFetchOvertime();
+  const { data: overTime, isLoading, error } = useFetchOvertime();
 
-  const sortedOverTime = sortOverTimeData(overTime);
+  const sortedOverTime = sortOverTimeData(overTime || []);
   const filteredData = useMemo(
     () => getFilteredData(sortedOverTime, dateRange),
     [sortedOverTime, dateRange]
@@ -53,7 +50,15 @@ const Graph = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {filteredData.length > 0 ? (
+          {isLoading ? (
+            <div className="h-[450px] flex items-center justify-center">
+              <Loader className="animate-spin size-6 text-muted-foreground" />
+            </div>
+          ) : error ? (
+            <div className="h-[450px] flex items-center justify-center">
+              <p className="text-xl text-red-500">Error loading graph data</p>
+            </div>
+          ) : filteredData.length > 0 ? (
             <ResponsiveContainer width="100%" height={450}>
               <LineChart
                 data={filteredData}
