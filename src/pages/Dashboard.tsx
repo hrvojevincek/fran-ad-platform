@@ -1,7 +1,4 @@
 // src/components/Dashboard.tsx
-import { useAuth } from "../context/AuthContext";
-import { useNavigate, Navigate } from "react-router-dom";
-import { useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -9,21 +6,26 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
-import Header from "../components/Header";
 import { useFetchMetrics } from "@/hooks/useFetchMetrics";
+import Header from "../components/Header";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export function Dashboard() {
-  const user = useAuth();
-  const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuth();
 
   const { data: metrics, isLoading, error } = useFetchMetrics();
 
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, [user, navigate]);
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
 
   if (!user) {
     return <Navigate to="/login" />;
@@ -39,8 +41,20 @@ export function Dashboard() {
           {/* Stats Card */}
           <Card>
             <CardHeader>
-              <CardTitle>Impressions</CardTitle>
-              <CardDescription>Card Description</CardDescription>
+              <CardTitle className="flex items-center gap-1">
+                Impressions
+                <Tooltip>
+                  <TooltipTrigger>
+                    <InfoCircledIcon className="size-4 text-muted-foreground" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    The total number of times an ad was shown to users today.
+                    This metric helps gauge the reach and visibility of your
+                    ads.
+                  </TooltipContent>
+                </Tooltip>
+              </CardTitle>
+              <CardDescription>HOLA</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold">
@@ -50,8 +64,20 @@ export function Dashboard() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Ad Requests</CardTitle>
-              <CardDescription>Card Description</CardDescription>
+              <CardTitle className="flex items-center gap-1">
+                Ad Requests
+                <Tooltip>
+                  <TooltipTrigger>
+                    <InfoCircledIcon className="size-4 text-muted-foreground" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    The number of times an ad request was made to the ad
+                    network. This metric indicates how many times users have
+                    interacted with your ads.
+                  </TooltipContent>
+                </Tooltip>
+              </CardTitle>
+              <CardDescription>HOLA</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold">
@@ -61,8 +87,20 @@ export function Dashboard() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Revenue</CardTitle>
-              <CardDescription>Card Description</CardDescription>
+              <CardTitle className="flex items-center gap-1">
+                Revenue
+                <Tooltip>
+                  <TooltipTrigger>
+                    <InfoCircledIcon className="size-4 text-muted-foreground" />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    The total earnings generated from ad impressions today. This
+                    reflects the revenue from displayed ads, providing a clear
+                    view of ad monetization performance.
+                  </TooltipContent>
+                </Tooltip>
+              </CardTitle>
+              <CardDescription>HOLA</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold">
