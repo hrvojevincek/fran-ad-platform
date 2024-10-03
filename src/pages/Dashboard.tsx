@@ -18,10 +18,28 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip as RechartsTooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import { useFetchOvertime } from "@/hooks/useOvertimeData";
+
 export function Dashboard() {
   const { user, isAuthenticated } = useAuth();
 
   const { data: metrics, isLoading, error } = useFetchMetrics();
+
+  const {
+    data: overTime,
+    isLoading: isLoadingData,
+    error: errorData,
+  } = useFetchOvertime();
 
   if (!isAuthenticated) {
     return <Navigate to="/login" />;
@@ -116,7 +134,39 @@ export function Dashboard() {
               <CardDescription>Card Description</CardDescription>
             </CardHeader>
             <CardContent>
-              <p>Card Content</p>
+              <ResponsiveContainer width="100%" height={450}>
+                <LineChart
+                  data={overTime}
+                  margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" />
+                  <YAxis />
+                  <RechartsTooltip />
+                  <Legend />
+                  {/* Line for Impressions */}
+                  <Line
+                    type="monotone"
+                    dataKey="impressions"
+                    stroke="#8884d8"
+                    name="Impressions"
+                  />
+                  {/* Line for Ad Requests */}
+                  <Line
+                    type="monotone"
+                    dataKey="ad_requests"
+                    stroke="#82ca9d"
+                    name="Ad Requests"
+                  />
+                  {/* Line for Revenue */}
+                  <Line
+                    type="monotone"
+                    dataKey="revenue"
+                    stroke="#ffc658"
+                    name="Revenue"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
             </CardContent>
           </Card>
         </div>
