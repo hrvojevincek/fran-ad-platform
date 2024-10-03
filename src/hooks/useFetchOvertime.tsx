@@ -7,7 +7,7 @@ interface OverTimeData {
   revenue: number;
 }
 
-export function useFetchOvertime() {
+export function useFetchOvertime(startDate?: Date, endDate?: Date) {
   const [data, setData] = useState<OverTimeData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -15,7 +15,11 @@ export function useFetchOvertime() {
   useEffect(() => {
     const fetchOvertime = async () => {
       try {
-        const response = await fetch("http://localhost:4000/overTime");
+        let url = "http://localhost:4000/overTime";
+        if (startDate && endDate) {
+          url += `?date_gte=${startDate.toISOString()}&date_lte=${endDate.toISOString()}`;
+        }
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -29,7 +33,7 @@ export function useFetchOvertime() {
     };
 
     fetchOvertime();
-  }, []);
+  }, [startDate, endDate]);
 
   return { data, isLoading, error };
 }
