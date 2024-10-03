@@ -5,11 +5,12 @@ interface User {
   id: string;
   email: string;
   password: string;
+  name: string;
 }
 
 interface AuthContextType {
   user: User | null;
-  signIn: (email: string, password: string) => Promise<void>;
+  signIn: (email: string, password: string, name: string) => Promise<void>;
   signOut: () => void;
   isAuthenticated: boolean;
 }
@@ -19,7 +20,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (email: string, password: string, name: string) => {
     try {
       // This is where you'd typically make an API call to your backend
       // For demo purposes, we'll simulate a successful login
@@ -27,6 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         id: "1",
         email: email,
         password: password,
+        name: name,
       };
 
       setUser(mockUser);
