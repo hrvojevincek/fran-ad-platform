@@ -87,25 +87,21 @@ src/
 
 ## Key Architectural Decisions
 
-1. **React with TypeScript**: The project uses React with TypeScript for type safety and improved developer experience.
+1. **Vite as Build Tool**: Vite is used as the build tool for its fast development server and optimized production builds.
 
-2. **Vite as Build Tool**: Vite is used as the build tool for its fast development server and optimized production builds.
+2. **Tailwind CSS**: The project utilizes Tailwind CSS for rapid UI development and consistent styling.
 
-3. **Tailwind CSS**: The project utilizes Tailwind CSS for rapid UI development and consistent styling.
+3. **shadcn/ui Components**: The application leverages the shadcn/ui component library for pre-built, customizable UI components.
 
-4. **shadcn/ui Components**: The application leverages the shadcn/ui component library for pre-built, customizable UI components.
+4. **Context API for State Management**: React's Context API is used for managing global state, such as user authentication.
 
-5. **Context API for State Management**: React's Context API is used for managing global state, such as user authentication.
+5. **Custom Hooks**: Custom hooks (e.g., `useFetchMetrics`, `useFetchOvertime`) are used to encapsulate data fetching logic and promote reusability.
 
-6. **Custom Hooks**: Custom hooks (e.g., `useFetchMetrics`, `useFetchOvertime`) are used to encapsulate data fetching logic and promote reusability.
+6. **JSON Server for Mocking API**: A JSON server is used to mock the backend API, allowing for rapid frontend development without a real backend.
 
-7. **JSON Server for Mocking API**: A JSON server is used to mock the backend API, allowing for rapid frontend development without a real backend.
+7. **Jest and React Testing Library**: Jest is used as the testing framework, with React Testing Library for component testing.
 
-8. **Jest and React Testing Library**: Jest is used as the testing framework, with React Testing Library for component testing.
-
-9. **ESLint and Prettier**: ESLint is used for code linting, and Prettier for code formatting to ensure consistent code style.
-
-10. **Recharts for Data Visualization**: The Recharts library is used for creating interactive and responsive charts.
+8. **Recharts for Data Visualization**: The Recharts library is used for creating interactive and responsive charts.
 
 ## Potential Improvements
 
@@ -117,18 +113,24 @@ src/
 
 4. **Accessibility**: Conduct a thorough accessibility audit and implement necessary improvements to ensure the application is usable by people with disabilities.
 
-5. **Internationalization**: Add support for multiple languages using a library like react-i18next.
-
-6. **Performance Optimization**: Implement code splitting and lazy loading for larger components to improve initial load times.
-
 7. **Enhanced Authentication**: Implement a more robust authentication system with features like password reset and email verification.
 
 8. **Data Caching**: Implement client-side caching of API responses to reduce unnecessary network requests and improve performance.
-
-9. **Responsive Design**: Enhance the responsive design to ensure a better user experience on a wider range of devices and screen sizes.
 
 10. **Advanced Analytics**: Implement more advanced analytics features such as custom date ranges, data export functionality, and additional chart types.
 
 11. **Unit and Integration Tests**: Increase test coverage by adding more unit tests for utility functions and integration tests for key user flows.
 
 12. **CI/CD Pipeline**: Set up a continuous integration and deployment pipeline for automated testing and deployment.
+
+## PRIORITIZATION
+
+Order of priorities: 
+1. Set up Vite React
+2. Authentication with JWT and Session
+3. Data Fetching & Axios & Tanstack Query
+4. Dashboard design implementation
+5. Recharts components & Code Splitting
+6. Error Handling and Loading states & Suspense / Lazy Loading
+
+8. 
