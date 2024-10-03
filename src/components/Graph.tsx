@@ -18,6 +18,7 @@ import {
   Tooltip,
 } from "recharts";
 import { useState } from "react";
+import SelectGraphButton from "./SelectGraphButton";
 
 interface OverTimeData {
   date: string;
@@ -38,35 +39,10 @@ const Graph = ({ overTime }: { overTime: OverTimeData[] | null }) => {
         <CardHeader>
           <CardTitle className="flex justify-between">
             <div>Overall Graph</div>
-            <div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant={"outline"} className="text-right ml-auto">
-                    {formatMetricName(selectedMetric)}
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem onSelect={() => setSelectedMetric("all")}>
-                    All Metrics
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onSelect={() => setSelectedMetric("impressions")}
-                  >
-                    Impressions
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onSelect={() => setSelectedMetric("ad_requests")}
-                  >
-                    Ad Requests
-                  </DropdownMenuItem>
-                  <DropdownMenuItem
-                    onSelect={() => setSelectedMetric("revenue")}
-                  >
-                    Revenue
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+            <SelectGraphButton
+              selectedMetric={selectedMetric}
+              setSelectedMetric={setSelectedMetric}
+            />
           </CardTitle>
         </CardHeader>
         <CardContent>
