@@ -34,6 +34,16 @@ export function Login() {
         </div>
         <form onSubmit={handleSubmit} className="grid gap-4">
           <div className="grid gap-2">
+            <Label htmlFor="name">Name</Label>
+            <Input
+              id="name"
+              placeholder="John Doe"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
@@ -42,16 +52,6 @@ export function Login() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="m@example.com"
               required
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="name">Name</Label>
-            <Input
-              id="name"
-              placeholder="John Doe"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div className="grid gap-2">

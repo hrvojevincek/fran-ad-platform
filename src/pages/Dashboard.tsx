@@ -6,16 +6,18 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 
 import Header from "../components/Header";
+import { useFetchMetrics } from "@/hooks/useFetchMetrics";
 
 export function Dashboard() {
   const user = useAuth();
   const navigate = useNavigate();
+
+  const { data: metrics, isLoading, error } = useFetchMetrics();
 
   useEffect(() => {
     if (!user) {
@@ -41,7 +43,9 @@ export function Dashboard() {
               <CardDescription>Card Description</CardDescription>
             </CardHeader>
             <CardContent>
-              <p>Card Content</p>
+              <p className="text-3xl font-bold">
+                {metrics?.dailyImpressions.toLocaleString()}
+              </p>
             </CardContent>
           </Card>
           <Card>
@@ -50,7 +54,9 @@ export function Dashboard() {
               <CardDescription>Card Description</CardDescription>
             </CardHeader>
             <CardContent>
-              <p>Card Content</p>
+              <p className="text-3xl font-bold">
+                {metrics?.ad_requests.toLocaleString()}
+              </p>
             </CardContent>
           </Card>
           <Card>
@@ -59,11 +65,13 @@ export function Dashboard() {
               <CardDescription>Card Description</CardDescription>
             </CardHeader>
             <CardContent>
-              <p>Card Content</p>
+              <p className="text-3xl font-bold">
+                ${metrics?.revenue.toFixed(2)}
+              </p>
             </CardContent>
           </Card>
         </div>
-        <div className="">
+        <div>
           <Card>
             <CardHeader>
               <CardTitle>Overall Graph</CardTitle>
